@@ -29,6 +29,15 @@ class partner(models.Model):
             name=name, args=args, operator=operator, limit=limit)
         return res
 
+    @api.multi
+    def copy(self, default=None):
+        if default is False:
+            default = {}
+        if not default.get('internal_code', False):
+            default['internal_code'] = self.env[
+                'ir.sequence'].get('partner.internal.code') or '/'
+        return super(partner, self).copy(default)
+
     @api.model
     def create(self, vals):
         if not vals.get('internal_code', False):
@@ -38,5 +47,5 @@ class partner(models.Model):
 
     _sql_constraints = {
         ('internal_code_uniq', 'unique(internal_code)',
-            'Internal Code mast be unique!')
+            'Internal Code mast be unique... blabla!')
     }
