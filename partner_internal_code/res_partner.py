@@ -36,7 +36,7 @@ class partner(models.Model):
         if not default.get('internal_code', False):
             default['internal_code'] = self.env[
                 'ir.sequence'].get('partner.internal.code') or '/'
-        partner = self.env['res.partner'].search([('internal_code', '=', deafult['internal_code'])])
+        partner = self.env['res.partner'].search([('internal_code', '=', default['internal_code'])])
         i = 0
         internal_code = default['internal_code']
         while partner:
